@@ -1,0 +1,654 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Voorstel SDB Groep V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: NAALA proposal. Sticky nav, light hero with dark key-date card, change log first, then phased approach, Gantt, inzet, investering. Single light theme by brand choice. */
+:root {
+  color-scheme: light;
+  --navy: #000048;
+  --lb: #C5D8FC;
+  --b2: #daeaff;
+  --b3: #eef4ff;
+  --b4: #f5f9ff;
+  --pink: #EB62CC;
+  --pink-soft: #fdeef9;
+  --white: #ffffff;
+  --muted: #4a4a7a;
+  --border: #d4e4fc;
+  --font-display: "Redoneta", "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --cut-l: polygon(20px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20px);
+  --cut-s: polygon(14px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 14px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; background: var(--white); color: var(--navy); font-family: var(--font-body); font-size: 15px; font-weight: 300; line-height: 1.75; }
+a { color: var(--navy); }
+:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+.scroll-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--pink); width: 0%; z-index: 9999; }
+
+/* nav */
+nav.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 200; background: rgba(255,255,255,0.96); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.nav-in { max-width: 1180px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.wordmark { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: 0.08em; text-decoration: none; color: var(--navy); }
+.wordmark span { color: var(--pink); }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { font-family: var(--font-display); font-size: 14px; font-weight: 400; text-decoration: none; transition: opacity .2s; }
+.nav-links a:hover { opacity: .6; }
+.nav-btn { background: var(--lb); color: var(--navy); height: 40px; padding: 0 20px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; display: inline-flex; align-items: center; clip-path: var(--cut-s); transition: background .2s, color .2s; white-space: nowrap; }
+.nav-btn:hover { background: var(--navy); color: var(--white); }
+@media (max-width: 900px) { .nav-links { display: none; } }
+
+/* sections */
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 24px; }
+section { padding-block: 80px; }
+.sw { background: var(--white); }
+.sb { background: linear-gradient(180deg, var(--lb) 0%, var(--white) 100%); }
+.sn { background: var(--navy); color: var(--white); }
+@media (max-width: 700px) { section { padding-block: 56px; } }
+
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--pink); margin-bottom: 14px; }
+.eyebrow::before { content: ""; width: 20px; height: 1.5px; background: var(--pink); }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(34px, 5.2vw, 60px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 300; line-height: 1.25; max-width: 760px; }
+h2 strong { font-weight: 700; }
+h1 em, h2 em { color: var(--pink); font-style: italic; }
+h3 { font-size: 19px; font-weight: 600; line-height: 1.35; }
+h4 { font-size: 15px; font-weight: 600; }
+.lead { max-width: 640px; color: var(--muted); margin: 16px 0 0; }
+.sec-head { margin-bottom: 40px; }
+
+/* change markers */
+.tag { display: inline-flex; align-items: center; gap: 6px; border-radius: 100px; padding: 2px 11px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; white-space: nowrap; }
+.tag-chg { background: var(--pink-soft); color: #a3218a; border: 1px solid #f5bfe8; }
+.tag-new { background: var(--navy); color: var(--white); border: 1px solid var(--navy); }
+.tag-same { background: var(--b3); color: var(--muted); border: 1px solid var(--border); }
+.tag-chg::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); }
+.callout { background: var(--b4); border-left: 3px solid var(--pink); padding: 18px 22px; clip-path: var(--cut-s); box-shadow: 0 0 24px rgba(0,0,72,0.08); max-width: 860px; }
+.callout .cl-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--pink); display: block; margin-bottom: 4px; }
+.callout p { margin: 0; }
+.callout p + p { margin-top: 8px; }
+.callout strong { font-weight: 600; }
+
+/* hero */
+.hero { background: linear-gradient(180deg, var(--lb) 0%, var(--white) 100%); padding-block: 72px 80px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.chip { border-radius: 100px; padding: 5px 14px; background: #eaf1ff; border: 1px solid var(--border); font-size: 12px; font-weight: 500; }
+.chip.v2 { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.hero p.lead { font-size: 16px; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.hero-chips .chip { background: var(--white); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.btn { height: 52px; padding: 0 28px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; clip-path: var(--cut-s); transition: background .25s, color .25s; }
+.btn-primary { background: var(--navy); color: var(--white); }
+.btn-primary:hover { background: var(--lb); color: var(--navy); }
+.btn-ghost { background: var(--white); color: var(--navy); box-shadow: inset 0 0 0 1.5px var(--border); }
+.btn-ghost:hover { box-shadow: inset 0 0 0 1.5px var(--navy); }
+
+.date-card { background: var(--navy); color: var(--white); clip-path: var(--cut-l); padding: 30px 30px 26px; box-shadow: 0 24px 60px rgba(0,0,72,0.2); }
+.date-card .dc-title { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #f080d8; margin-bottom: 18px; display: block; }
+.dc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.dc-list li { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 14px; padding: 13px 0; border-top: 1px solid rgba(197,216,252,0.18); }
+.dc-list li:first-child { border-top: 0; padding-top: 0; }
+.dc-when { font-size: 12px; font-weight: 600; color: var(--lb); letter-spacing: .02em; line-height: 1.5; }
+.dc-what { font-size: 14px; line-height: 1.5; }
+.dc-what small { display: block; color: rgba(255,255,255,0.62); font-size: 12px; margin-top: 2px; }
+.dc-foot { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.55; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* change table */
+.chg-table-wrap { overflow-x: auto; background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); }
+table.chg { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 14px; }
+table.chg th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 18px 22px; border-bottom: 1px solid var(--border); background: var(--b4); }
+table.chg th.v2 { color: var(--pink); }
+table.chg td { padding: 18px 22px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+table.chg tr:last-child td { border-bottom: 0; }
+table.chg td.topic { font-weight: 600; width: 19%; }
+table.chg td.v1 { color: var(--muted); width: 33%; }
+table.chg td.v2 { width: 48%; }
+table.chg td.v2 strong { font-weight: 600; }
+
+/* phases */
+.phases { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.phase { background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); padding: 30px 28px 28px; display: flex; flex-direction: column; gap: 14px; }
+.phase.dark { background: var(--navy); color: var(--white); }
+.phase.dark .ph-when { color: var(--lb); }
+.phase.dark .ph-role { color: rgba(255,255,255,0.75); border-color: rgba(197,216,252,0.25); }
+.phase.dark li::before { background: var(--pink); color: var(--white); }
+.ph-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ph-num { font-size: 11px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--pink); }
+.ph-when { font-size: 13px; font-weight: 600; color: var(--muted); }
+.ph-role { font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; line-height: 1.55; }
+.phase ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.phase li { display: grid; grid-template-columns: 22px minmax(0,1fr); gap: 10px; font-size: 14px; line-height: 1.55; }
+.phase li::before { content: "✓"; width: 22px; height: 22px; border-radius: 50%; background: var(--lb); color: var(--navy); font-size: 11px; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.ph-note { font-size: 13px; line-height: 1.55; margin-top: auto; padding-top: 6px; }
+.phase:not(.dark) .ph-note { color: var(--muted); }
+@media (max-width: 980px) { .phases { grid-template-columns: 1fr; } }
+
+/* foundation sequence */
+.seq { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 0; margin-top: 8px; counter-reset: s; }
+.seq-item { background: var(--white); padding: 22px 20px 20px; border: 1px solid var(--border); margin-left: -1px; position: relative; }
+.seq-item:first-child { clip-path: var(--cut-s); margin-left: 0; }
+.seq-n { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: .1em; }
+.seq-item h4 { margin: 6px 0 8px; font-size: 14.5px; line-height: 1.35; }
+.seq-item p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.55; }
+.seq-feeds { font-size: 12px; color: var(--navy); margin-top: 10px !important; font-weight: 500; }
+@media (max-width: 1000px) { .seq { grid-template-columns: 1fr; } .seq-item { margin-left: 0; margin-top: -1px; } }
+
+.decisions { margin-top: 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.dec-card { background: var(--b4); clip-path: var(--cut-s); padding: 24px 26px; }
+.dec-card h3 { font-size: 16px; margin-bottom: 12px; }
+.dec-card ul { margin: 0; padding-left: 18px; font-size: 14px; display: grid; gap: 6px; }
+@media (max-width: 860px) { .decisions { grid-template-columns: 1fr; } }
+
+/* gantt */
+.gantt-wrap { overflow-x: auto; background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); padding: 24px 24px 18px; }
+.gantt { min-width: 900px; display: grid; grid-template-columns: 270px repeat(8, minmax(0,1fr)); font-size: 13px; }
+.g-phase { grid-row: 1; padding: 6px 10px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--white); background: var(--navy); margin: 0 2px 6px; clip-path: var(--cut-s); }
+.g-phase.p1 { background: var(--pink); }
+.g-phase.p3 { background: var(--muted); }
+.g-month { grid-row: 2; text-align: center; font-size: 12px; font-weight: 600; color: var(--muted); padding: 6px 0 10px; border-bottom: 1px solid var(--border); }
+.g-month small { display: block; font-weight: 400; font-size: 10.5px; color: #8a8ab0; line-height: 1.2; }
+.g-label { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--b3); line-height: 1.35; }
+.g-label b { font-weight: 600; display: block; font-size: 13.5px; }
+.g-label span { color: var(--muted); font-size: 12px; }
+.g-label .tag { margin-top: 5px; font-size: 9.5px; padding: 1px 8px; }
+.g-cell { border-bottom: 1px solid var(--b3); border-left: 1px dashed var(--b3); }
+.g-bar { align-self: center; height: 22px; margin: 0 3px; clip-path: polygon(8px 0%, 100% 0%, 100% 100%, 0% 100%, 0% 8px); position: relative; z-index: 1; font-size: 10.5px; font-weight: 600; color: var(--white); display: flex; align-items: center; padding-left: 10px; white-space: nowrap; overflow: hidden; }
+.bar-f { background: var(--pink); }
+.bar-n { background: var(--navy); }
+.bar-l { background: var(--lb); color: var(--navy); }
+.bar-buf { background: repeating-linear-gradient(135deg, var(--lb) 0 6px, var(--b3) 6px 12px); color: var(--navy); }
+.g-ms { align-self: center; justify-self: center; position: relative; z-index: 1; display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+.g-ms i { width: 12px; height: 12px; background: var(--pink); transform: rotate(45deg); display: inline-block; flex: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 22px; height: 10px; display: inline-block; }
+.legend i.ms { width: 7px; height: 7px; margin: 0 2px; transform: rotate(45deg); background: var(--pink); }
+.g-label span.tag-new { color: var(--white); }
+.g-label span.tag-chg { color: #a3218a; }
+
+/* milestones */
+.ms-list { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+.ms { background: var(--white); clip-path: var(--cut-s); box-shadow: 0 0 24px rgba(0,0,72,0.08); padding: 20px 22px; }
+.ms-when { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: .04em; text-transform: uppercase; }
+.ms h4 { margin: 4px 0 6px; }
+.ms p { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+@media (max-width: 900px) { .ms-list { grid-template-columns: 1fr; } }
+
+/* inzet */
+.inzet { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 24px; }
+.inzet-card { background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); padding: 30px 28px; }
+.inzet-card h3 { margin: 6px 0 14px; }
+.inzet-card table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.inzet-card td { padding: 10px 0; border-top: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.inzet-card td:last-child { text-align: right; font-weight: 600; white-space: nowrap; padding-left: 16px; font-variant-numeric: tabular-nums; }
+.inzet-card p { font-size: 14px; color: var(--muted); margin: 14px 0 0; }
+@media (max-width: 860px) { .inzet { grid-template-columns: 1fr; } }
+
+/* tiers */
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; align-items: stretch; }
+.tier { background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); padding: 30px 28px; display: flex; flex-direction: column; gap: 10px; }
+.tier.rec { background: var(--navy); color: var(--white); }
+.tier-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--pink); }
+.tier.rec .tier-label { color: #f080d8; }
+.tier h3 { font-size: 18px; }
+.tier .price { font-size: 38px; font-weight: 300; line-height: 1.1; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.tier .price-sub { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.tier.rec .price-sub { color: rgba(255,255,255,0.72); }
+.tier ul { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; display: grid; gap: 5px; }
+.tier .tier-chg { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; line-height: 1.55; }
+.tier.rec .tier-chg { border-color: rgba(197,216,252,0.25); }
+.tier .tier-chg strong { font-weight: 600; }
+@media (max-width: 980px) { .tiers { grid-template-columns: 1fr; } }
+.terms { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 28px; font-size: 14px; }
+.terms div span { display: block; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.terms div b { font-weight: 600; }
+
+/* conditions */
+.cond { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.cond-item { border-top: 2px solid var(--navy); padding-top: 18px; }
+.cond-item h3 { font-size: 16px; margin: 8px 0 8px; }
+.cond-item p { margin: 0; font-size: 14px; color: var(--muted); }
+@media (max-width: 900px) { .cond { grid-template-columns: 1fr; } }
+
+/* cta + footer */
+.cta { text-align: left; }
+.cta-box { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(0,1fr); gap: 40px; align-items: center; }
+.contact { background: var(--white); clip-path: var(--cut-l); box-shadow: 0 0 24px rgba(0,0,72,0.1); padding: 26px 28px; font-size: 14px; }
+.contact .addr { font-size: 18px; font-weight: 600; user-select: all; display: block; margin: 4px 0 14px; word-break: break-all; }
+.copy-btn { border: 0; cursor: pointer; font-family: var(--font-body); }
+@media (max-width: 860px) { .cta-box { grid-template-columns: 1fr; } }
+footer { background: var(--navy); color: rgba(255,255,255,0.78); padding-block: 48px; font-size: 13px; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+.foot .wordmark { color: var(--white); font-size: 20px; }
+.foot p { margin: 8px 0 0; line-height: 1.7; }
+</style>
+
+<div class="scroll-bar" id="sbar"></div>
+
+<nav class="top" aria-label="Hoofdnavigatie">
+  <div class="nav-in">
+    <a class="logo" href="#top"><img src="data:image/png;base64,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" alt="NAALA" style="height:26px;width:auto;display:block"></a>
+    <div class="nav-links">
+      <a href="#wijzigingen">Wijzigingen</a>
+      <a href="#aanpak">Aanpak</a>
+      <a href="#planning">Planning</a>
+      <a href="#inzet">Inzet</a>
+      <a href="#investering">Investering</a>
+    </div>
+    <a class="nav-btn" href="#contact">Reageren</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-meta">
+        <span class="chip">Voorstel SDB Groep</span>
+        <span class="chip v2">Versie 2 · oktober 2026</span>
+        <span class="chip">Tier C, Volledige Ondersteuning</span>
+      </div>
+      <h1>MDR-implementatie, herzien voor een <em>start in november</em>.</h1>
+      <p class="lead">Dit is de geactualiseerde versie van ons voorstel van juni, uitgewerkt voor het door jullie gekozen scenario Tier C. Scope en methodologie blijven gelijk. De planning is opnieuw opgebouwd rond een start in november en de route via interne audit en stage 1 bij Scarlet naar indiening van het technisch dossier.</p>
+      <div class="hero-chips">
+        <span class="chip">MDR 2017/745</span>
+        <span class="chip">ISO 13485:2016</span>
+        <span class="chip">IEC 62304</span>
+        <span class="chip">ISO 14971:2019</span>
+        <span class="chip">MDCG 2020-1</span>
+        <span class="chip">IEC 81001-5-1</span>
+        <span class="chip">Klasse IIa+ MDSW</span>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#wijzigingen">Wat is er gewijzigd</a>
+        <a class="btn btn-ghost" href="#planning">Naar de planning</a>
+      </div>
+    </div>
+    <aside class="date-card" aria-label="Mijlpalen">
+      <span class="dc-title">Route naar CE-markering</span>
+      <ul class="dc-list">
+        <li><span class="dc-when">November 2026</span><span class="dc-what">Start fase 1<small>Fundament en beslissingen</small></span></li>
+        <li><span class="dc-when">Januari 2027</span><span class="dc-what">Start fase 2<small>QMS-implementatie en dossieropbouw</small></span></li>
+        <li><span class="dc-when">April 2027</span><span class="dc-what">Interne audit en management review<small>Verplichte input voor stage 1</small></span></li>
+        <li><span class="dc-when">Eind april 2027</span><span class="dc-what">Aanvraag stage 1 bij Scarlet</span></li>
+        <li><span class="dc-when">Mei 2027</span><span class="dc-what">Indiening technisch dossier<small>Streefdatum, juni als buffer</small></span></li>
+      </ul>
+      <p class="dc-foot">De exacte data van stage 1 en stage 2 stemmen we bij de aanvraag af met Scarlet.</p>
+    </aside>
+  </div>
+</header>
+
+<section class="sw" id="wijzigingen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§00 Wijzigingen</span>
+      <h2>Wat er <em>verandert</em> ten opzichte van juni.</h2>
+      <p class="lead">Een overzicht per onderdeel. In de rest van dit voorstel markeren we gewijzigde en nieuwe onderdelen met een label.</p>
+    </div>
+    <div class="chg-table-wrap">
+      <table class="chg">
+        <thead><tr><th>Onderdeel</th><th>Versie juni 2026</th><th class="v2">Versie 2, oktober 2026</th></tr></thead>
+        <tbody>
+          <tr><td class="topic">Startmoment</td><td class="v1">September 2026</td><td class="v2"><strong>November 2026</strong></td></tr>
+          <tr><td class="topic">Opbouw</td><td class="v1">Acht maanden, één hoofdonderwerp per maand, met overlap waar de keten dat vraagt</td><td class="v2"><strong>Drie fasen.</strong> November en december voor het fundament en de beslissingen. Vanaf januari lopen QMS en dossier parallel door.</td></tr>
+          <tr><td class="topic">Rol NAALA in november en december</td><td class="v1">Volledig ritme vanaf maand één</td><td class="v2"><strong>Delen, plannen en adviseren.</strong> Wij leveren templates, planning en advies. SDB schrijft de eerste fundamentdocumenten en neemt de besluiten.</td></tr>
+          <tr><td class="topic">Mijlpalen</td><td class="v1">Submission-gereed eind april</td><td class="v2"><strong>Interne audit en management review in april, aanvraag stage 1 eind april, indiening technisch dossier in mei.</strong> Juni dient als buffer.</td></tr>
+          <tr><td class="topic">Inzet SDB</td><td class="v1">8 uur per week per sleutelfiguur, gedurende het actieve onderwerp</td><td class="v2"><strong>Vanaf januari gelijktijdig en opgeschaald:</strong> Quality Manager 24 uur, eigenaar software development 16 uur en eigenaar klinische evaluatie 16 uur per week.</td></tr>
+          <tr><td class="topic">Scenario</td><td class="v1">Drie scenario's ter keuze, Tier B aanbevolen</td><td class="v2"><strong>Tier C, Volledige Ondersteuning</strong>, conform jullie keuze</td></tr>
+          <tr><td class="topic">NAALA-inzet</td><td class="v1">20 uur senior en 16 uur junior per maand, acht maanden lang</td><td class="v2"><strong>November en december: 32 uur senior in totaal.</strong> Vanaf januari 25 uur senior en 16 uur junior per maand.</td></tr>
+          <tr><td class="topic">Investering</td><td class="v1">€49.600 over acht maanden, gelijk verdeeld</td><td class="v2"><strong>€49.600, ongewijzigd.</strong> Fase 1 voor €6.400, daarna €7.200 per maand van januari tot en met juni</td></tr>
+          <tr><td class="topic">Geldigheid</td><td class="v1">Tot 30 september 2026</td><td class="v2"><strong>Tot en met 31 oktober 2026</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sb" id="uitgangspunten">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§01 Uitgangspunten</span>
+      <h2>De basis uit juni <em>blijft</em> staan.</h2>
+      <p class="lead">Context, inhoudelijke scope en de zes werkstromen zijn gelijk aan het voorstel van juni. Kort samengevat:</p>
+    </div>
+    <div class="cond">
+      <div class="cond-item"><span class="tag tag-same">Ongewijzigd</span><h3>Uitvoering bij SDB</h3><p>SDB voert uit, NAALA levert regie, methodologie en review. Het bestaande ISO 27001-ISMS wordt aangevuld tot een QISMS waarin ISO 13485 en MDR volwaardig zijn ingericht.</p></div>
+      <div class="cond-item"><span class="tag tag-same">Ongewijzigd</span><h3>Intended purpose als bron</h3><p>Eén formulering van de intended purpose, identiek in device description, risk file, CER, GSPR en IFU. Wijzigingen werken we systematisch door in afhankelijke documenten.</p></div>
+      <div class="cond-item"><span class="tag tag-same">Ongewijzigd</span><h3>Drie interne eigenaren</h3><p>Eigenaren voor QMS, klinische evaluatie en software development, met de Quality Manager als doorlopende regiehouder. NAALA levert per rol een functieprofiel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sw" id="aanpak">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§02 Aanpak <span class="tag tag-new" style="margin-left:6px">Nieuw</span></span>
+      <h2>Een traject in <em>drie fasen</em>.</h2>
+      <p class="lead">De eerste twee maanden gebruiken we om de beslissingen te nemen waar het hele dossier op rust. Vanaf januari schalen we op en bouwen QMS en technisch dossier parallel.</p>
+    </div>
+
+    <div class="phases">
+      <article class="phase">
+        <div class="ph-top"><span class="ph-num">Fase 1</span><span class="ph-when">November tot half december</span></div>
+        <h3>Fundament en beslissingen</h3>
+        <div class="ph-role">NAALA deelt templates en playbooks, stelt de planning op en adviseert. SDB schrijft en beslist.</div>
+        <ul>
+          <li>Intended purpose en device description, inclusief key functional elements</li>
+          <li>Architectuur en SBOM, met afbakening van wat wel en geen medical device is</li>
+          <li>Risico-inventarisatie</li>
+          <li>Clinical claims</li>
+          <li>Clinical Evaluation Plan en literature search protocol</li>
+        </ul>
+        <p class="ph-note">Doel: eind december liggen de keuzes vast waarop fase 2 kan bouwen.</p>
+      </article>
+      <article class="phase dark">
+        <div class="ph-top"><span class="ph-num">Fase 2</span><span class="ph-when">Januari tot en met april</span></div>
+        <h3>QMS-implementatie en dossier</h3>
+        <div class="ph-role">Volledig ritme: 25 uur senior voor strategie, reviews en afhankelijkheden, plus 16 uur junior die meeschrijft aan documentatie en registers.</div>
+        <ul>
+          <li>QMS-implementatie op het bestaande ISMS, processen in gebruik met records</li>
+          <li>Literatuursearch en Clinical Evaluation Report</li>
+          <li>Risicomanagementfile, software development conform IEC 62304, cybersecurity</li>
+          <li>Usability engineering en PMS/PMCF-plan</li>
+          <li>Interne audit, management review en aanvraag stage 1 bij Scarlet</li>
+        </ul>
+        <p class="ph-note">Scarlet vraagt bij de stage 1-aanvraag om het rapport van de interne audit en de management review.</p>
+      </article>
+      <article class="phase">
+        <div class="ph-top"><span class="ph-num">Fase 3</span><span class="ph-when">Mei en juni</span></div>
+        <h3>Afronden en indienen</h3>
+        <div class="ph-role">Verdere implementatie van het QMS en afronding van het technisch dossier voor stage 2.</div>
+        <ul>
+          <li>Opvolging van aandachtspunten uit stage 1</li>
+          <li>CER afgerond, traceability, label, IFU en GSPR-checklist</li>
+          <li>Technisch dossier samengesteld en pre-submission check</li>
+          <li>Indiening technisch dossier, streefdatum mei</li>
+        </ul>
+        <p class="ph-note">Juni houden we vrij als buffer voor uitloop in het CER of opvolging van de audit.</p>
+      </article>
+    </div>
+
+    <div style="margin-top:56px">
+      <h3 style="margin-bottom:6px">Fase 1 in volgorde</h3>
+      <p class="lead" style="margin-top:0;margin-bottom:22px">Elk document voedt het volgende. Daarom werken we deze vijf onderwerpen in deze volgorde uit.</p>
+      <div class="seq">
+        <div class="seq-item"><span class="seq-n">1</span><h4>Intended purpose en device description</h4><p>Beoogd doel, gebruikers, omgeving en de key functional elements van de software.</p><p class="seq-feeds">Voedt: afbakening, claims, risico's</p></div>
+        <div class="seq-item"><span class="seq-n">2</span><h4>Architectuur en SBOM</h4><p>Softwarearchitectuur, componenten en SOUP, en de afbakening van modules die wel en geen medical device zijn.</p><p class="seq-feeds">Voedt: risico-inventarisatie, safety class</p></div>
+        <div class="seq-item"><span class="seq-n">3</span><h4>Risico-inventarisatie</h4><p>Eerste inventarisatie van hazards en gevaarlijke situaties binnen de vastgestelde afbakening.</p><p class="seq-feeds">Voedt: risk management plan, CEP</p></div>
+        <div class="seq-item"><span class="seq-n">4</span><h4>Clinical claims</h4><p>Welke klinische voordelen en prestaties SDB claimt, afgeleid van intended purpose en key functional elements.</p><p class="seq-feeds">Voedt: CEP, IFU, marketing</p></div>
+        <div class="seq-item"><span class="seq-n">5</span><h4>CEP en literature search protocol</h4><p>Plan voor de klinische evaluatie, met zoekstrategie en appraisal-criteria vooraf vastgelegd.</p><p class="seq-feeds">Voedt: literatuursearch in januari</p></div>
+      </div>
+    </div>
+
+    <div class="decisions">
+      <div class="dec-card">
+        <h3>Besluiten die eind december genomen zijn</h3>
+        <ul>
+          <li>Intended purpose en classificatie vastgesteld</li>
+          <li>Afbakening van de medical device software ten opzichte van de rest van het platform</li>
+          <li>Clinical claims vastgesteld als basis voor CEP en IFU</li>
+          <li>Drie interne eigenaren en de Quality Manager benoemd</li>
+          <li>Omgeving gekozen waarin het QMS wordt ingericht</li>
+          <li>Eerste contact met Scarlet over planning van de aanvraag</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <span class="cl-label">Wijziging t.o.v. juni</span>
+        <p>In het voorstel van juni startte het QMS in de eerste maand en volgden de inhoudelijke onderwerpen maand voor maand. In deze versie <strong>komen de productbeslissingen eerst</strong>. Dat maakt de start lichter en zorgt dat het dossier vanaf januari op een vaste basis wordt opgebouwd.</p>
+        <p>Als deze besluiten eind december niet vastliggen, schuift de planning van fase 2 mee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sb" id="planning">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§03 Planning <span class="tag tag-chg" style="margin-left:6px">Gewijzigd</span></span>
+      <h2>Implementatieschema, november <em>tot en met</em> juni.</h2>
+      <p class="lead">Fase 1 loopt tot de kerstperiode. Vanaf januari lopen meerdere werkstromen tegelijk, zodat stage 1 eind april en indiening van het dossier in mei haalbaar zijn.</p>
+    </div>
+
+    <div class="gantt-wrap" role="region" aria-label="Implementatieschema" tabindex="0">
+      <div class="gantt">
+        <div class="g-phase p1" style="grid-column: 2 / 4">Fase 1</div>
+        <div class="g-phase" style="grid-column: 4 / 8">Fase 2</div>
+        <div class="g-phase p3" style="grid-column: 8 / 10">Fase 3</div>
+
+        <div style="grid-row:2;grid-column:1;border-bottom:1px solid var(--border)"></div>
+        <div class="g-month" style="grid-column:2">Nov<small>2026</small></div>
+        <div class="g-month" style="grid-column:3">Dec<small>tot kerst</small></div>
+        <div class="g-month" style="grid-column:4">Jan<small>2027</small></div>
+        <div class="g-month" style="grid-column:5">Feb</div>
+        <div class="g-month" style="grid-column:6">Mrt</div>
+        <div class="g-month" style="grid-column:7">Apr</div>
+        <div class="g-month" style="grid-column:8">Mei</div>
+        <div class="g-month" style="grid-column:9">Jun</div>
+      </div>
+      <div class="gantt" id="gbody"></div>
+      <div class="legend">
+        <span><i style="background:var(--pink)"></i>Fase 1, SDB schrijft met advies van NAALA</span>
+        <span><i style="background:var(--navy)"></i>Implementatie en dossier</span>
+        <span><i style="background:var(--lb)"></i>Verdere implementatie en afronding</span>
+        <span><i style="background:repeating-linear-gradient(135deg,var(--lb) 0 4px,var(--b3) 4px 8px)"></i>Buffer</span>
+        <span><i class="ms"></i>Mijlpaal</span>
+      </div>
+    </div>
+
+    <div class="ms-list">
+      <div class="ms"><span class="ms-when">Eind december</span><h4>Fundament vastgesteld</h4><p>Intended purpose, afbakening, claims en CEP liggen vast. De literatuursearch kan begin januari starten.</p></div>
+      <div class="ms"><span class="ms-when">Eind maart</span><h4>QMS in gebruik</h4><p>Alle processen draaien en leveren records op, zodat de interne audit in april iets te toetsen heeft.</p></div>
+      <div class="ms"><span class="ms-when">April</span><h4>Interne audit en management review</h4><p>De auditor heeft niet zelf aan de documenten gewerkt. Bevindingen gaan via CAPA, daarna volgt de management review.</p></div>
+      <div class="ms"><span class="ms-when">Eind april</span><h4>Aanvraag stage 1</h4><p>Met het auditrapport en de management review als bijlagen bij de aanvraag bij Scarlet.</p></div>
+      <div class="ms"><span class="ms-when">Mei</span><h4>Indiening technisch dossier</h4><p>Volledig Annex II en III-dossier, na een pre-submission check tegen de Team-NB best practice guide.</p></div>
+      <div class="ms"><span class="ms-when">Juni</span><h4>Buffer</h4><p>Ruimte voor uitloop in het CER, opvolging van stage 1 of afstemming van de stage 2-datum met Scarlet.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sw" id="inzet">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§04 Inzet <span class="tag tag-chg" style="margin-left:6px">Gewijzigd</span></span>
+      <h2>Wat het traject <em>per fase</em> vraagt.</h2>
+      <p class="lead">De verdeling van inzet verschuift. In fase 1 ligt het schrijfwerk bij SDB, vanaf januari is het hele team tegelijk actief.</p>
+    </div>
+    <div class="inzet">
+      <div class="inzet-card">
+        <span class="tag tag-new">Nieuw</span>
+        <h3>Fase 1, november tot half december</h3>
+        <table>
+          <tr><td>NAALA senior: gap-analyse, planning, toolkit, advies en review op de fundamentdocumenten</td><td>32 uur totaal</td></tr>
+          <tr><td>Interne Quality Manager, regie en voorbereiding QMS-omgeving</td><td>8 uur p/w</td></tr>
+          <tr><td>Product owner of eigenaar intended purpose</td><td>4 tot 6 uur p/w</td></tr>
+          <tr><td>CTO of lead architect voor architectuur en SBOM</td><td>4 uur p/w</td></tr>
+          <tr><td>Eigenaar klinische evaluatie voor claims en CEP</td><td>6 tot 8 uur p/w</td></tr>
+        </table>
+        <p>Beslissers moeten beschikbaar zijn op de besluitmomenten in december.</p>
+      </div>
+      <div class="inzet-card">
+        <span class="tag tag-chg">Gewijzigd</span>
+        <h3>Fase 2 en 3, januari tot en met juni</h3>
+        <table>
+          <tr><td>NAALA senior: strategiesessie, tweewekelijkse reviews, bewaking van afhankelijkheden</td><td>25 uur p/m</td></tr>
+          <tr><td>NAALA junior: meeschrijven aan documentatie en registers</td><td>16 uur p/m</td></tr>
+          <tr><td>Interne Quality Manager</td><td>24 uur p/w</td></tr>
+          <tr><td>Eigenaar software development</td><td>16 uur p/w</td></tr>
+          <tr><td>Eigenaar klinische evaluatie</td><td>16 uur p/w</td></tr>
+        </table>
+        <p>In juni stond 8 uur per week per sleutelfiguur, na elkaar gepland. Om te versnellen zijn de eigenaren vanaf januari <strong>gelijktijdig en met meer uren</strong> actief. De Quality Manager draagt QMS-implementatie, interne audit en de stage 1-aanvraag, daarom 24 uur per week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sb" id="investering">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§05 Investering <span class="tag tag-chg" style="margin-left:6px">Gewijzigd</span></span>
+      <h2>Tier C, Volledige Ondersteuning, <em>per fase</em>.</h2>
+      <p class="lead">De scope en het totaalbedrag van Tier C blijven gelijk aan juni. Alleen de verdeling over de maanden volgt de nieuwe fasering, met meer senior inzet vanaf januari.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <span class="tier-label">Fase 1, november en december</span>
+        <h3>Fundament en beslissingen</h3>
+        <div class="price">€6.400</div>
+        <div class="price-sub">32 uur senior tegen €200 per uur, gefactureerd als €3.200 in november en €3.200 in december</div>
+        <ul><li>Gap-analyse en projectplan</li><li>Toegang tot de volledige NAALA MDR-toolkit</li><li>Advies en review op de vijf fundamentdocumenten</li><li>Voorbereiding van de besluitmomenten in december</li></ul>
+        <p class="tier-chg"><strong>Nieuw:</strong> fase 1 heeft een eigen bedrag. De junior schrijft in deze fase nog niet mee.</p>
+      </div>
+      <div class="tier rec">
+        <span class="tier-label">Fase 2 en 3, januari tot en met juni</span>
+        <h3>Implementatie en indiening</h3>
+        <div class="price">€7.200</div>
+        <div class="price-sub">Per maand, 6 maanden. 25 uur senior (€5.000) en 16 uur junior (€2.200)</div>
+        <ul><li>Tweewekelijkse review van deliverables en maandelijkse strategiesessie</li><li>Doorlopende bewaking van afhankelijkheden</li><li>Mede-opstelling van documentatie en registers</li><li>Inrichten van bewijsstructuren in jullie systemen</li><li>Slack-sparring</li></ul>
+        <p class="tier-chg"><strong>Gewijzigd:</strong> 25 uur senior per maand in plaats van 20, om het parallelle tempo vanaf januari te ondersteunen.</p>
+      </div>
+      <div class="tier">
+        <span class="tier-label">Totaal</span>
+        <h3>November 2026 tot en met juni 2027</h3>
+        <div class="price">€49.600</div>
+        <div class="price-sub">€6.400 voor fase 1 en 6 × €7.200 voor fase 2 en 3</div>
+        <ul><li>Senior: 182 uur, €36.400</li><li>Junior: 96 uur, €13.200</li><li>Binnen de scope geen aanvullende uren</li></ul>
+        <p class="tier-chg"><strong>Ongewijzigd:</strong> het totaalbedrag uit juni. De junior-uren schuiven naar januari tot en met juni, de vrijgekomen ruimte gaat naar senior inzet.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:28px">
+      <span class="cl-label">Buiten deze scope</span>
+      <p>De uitvoering van de interne audit valt hier niet onder. De auditor mag niet zelf aan de documenten hebben gewerkt; die rol beleggen we apart, intern bij SDB of extern.</p>
+    </div>
+    <div class="terms">
+      <div><span>BTW</span><b>Exclusief 21% BTW</b></div>
+      <div><span>Facturering</span><b>Maandelijks per kalendermaand</b></div>
+      <div><span>Betalingstermijn</span><b>14 dagen netto</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="sw" id="voorwaarden">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">§06 Voorwaarden</span>
+      <h2>Randvoorwaarden en <em>vervolg</em>.</h2>
+    </div>
+    <div class="cond">
+      <div class="cond-item"><span class="tag tag-chg">Gewijzigd</span><h3>Geldig tot en met 31 oktober 2026</h3><p>Scope, planning en tarieven gelden bij een akkoord uiterlijk op die datum. Zo kunnen we in november daadwerkelijk starten.</p></div>
+      <div class="cond-item"><span class="tag tag-new">Nieuw</span><h3>Afstemming met Scarlet</h3><p>De data van stage 1 en stage 2 hangen af van de planning van Scarlet. We nemen dat in december op met de NB, zodat stage 2 aansluit op indiening van het dossier.</p></div>
+      <div class="cond-item"><span class="tag tag-same">Ongewijzigd</span><h3>Validatie tijdens kickoff</h3><p>Classificatie, intended purpose en de staat van het ISMS valideren we in de eerste week. Wijken die af van de aannames, dan stemmen we de planning samen af.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sb cta" id="contact">
+  <div class="wrap cta-box">
+    <div>
+      <span class="eyebrow">Vervolg</span>
+      <h2>We horen graag of deze planning <em>aansluit</em>.</h2>
+      <p class="lead">Na jullie interne afstemming ontvangen we graag een akkoord op deze versie en eventuele vragen over de fasering. Dan plannen we de kickoff in de eerste week van november.</p>
+    </div>
+    <div class="contact">
+      Reactie naar Amy Eikelenboom
+      <span class="addr" id="addr">amy@naala.nl</span>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-primary copy-btn" id="copy" type="button">Kopieer adres</button>
+        <a class="btn btn-ghost" href="mailto:amy@naala.nl?subject=Voorstel%20SDB%20Groep%20versie%202">Open e-mail</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <img src="data:image/png;base64,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" alt="NAALA, not an average legal advisor" style="height:40px;width:auto;display:block">
+      <p>NAALA B.V., Rotterdam<br>Regulatoire consultancy voor MedTech en healthcare AI<br>MDR, ISO 13485, ISO 27001, NEN 7510, GDPR, EU AI Act</p>
+    </div>
+    <div style="text-align:right">
+      <p>Voorstel SDB Groep, Tier C<br>Versie 2, oktober 2026<br>Vervangt versie juni 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Gantt rows: [label, sub, tag, bars]; bar = [startCol(1=Nov), span, class, text] or milestone ['ms', col, text]
+  var rows = [
+    ["Intended purpose en device description", "Inclusief key functional elements", "new", [[1, 2, "bar-f", "Fase 1"]]],
+    ["Architectuur en SBOM", "Afbakening wel en geen medical device", "new", [[1, 2, "bar-f", "Fase 1"]]],
+    ["Risicomanagement", "Inventarisatie, daarna RMF conform ISO 14971", "chg", [[1, 2, "bar-f", "Inventarisatie"], [3, 4, "bar-n", "Risicomanagementfile"]]],
+    ["Clinical claims, CEP en search protocol", "Basis voor de literatuursearch", "new", [[1, 2, "bar-f", "Fase 1"]]],
+    ["Literatuursearch en CER", "MDCG 2020-1, drie pijlers", "chg", [[3, 4, "bar-n", "Search en CER"], [7, 1, "bar-l", "Afronden"]]],
+    ["QMS en QISMS", "ISO 13485 en MDR op het bestaande ISMS", "chg", [[3, 3, "bar-n", "Implementatie"], [6, 3, "bar-l", "Verdere implementatie"]]],
+    ["Software development en cybersecurity", "IEC 62304, IEC 81001-5-1", "chg", [[3, 4, "bar-n", "SDLC-documentatie"]]],
+    ["Usability en PMS / PMCF", "IEC 62366-1, post-market processen", "", [[4, 3, "bar-n", "Usability en PMS"]]],
+    ["Traceability, label, IFU en GSPR", "Annex I en Annex II", "", [[5, 3, "bar-n", "Traceability en GSPR"]]],
+    ["Interne audit en management review", "Input voor stage 1", "new", [["ms", 6, "Audit en MR"]]],
+    ["Stage 1 bij Scarlet", "Aanvraag met audit en MR", "new", [["ms", 6, "Aanvraag", "end"]]],
+    ["Technisch dossier", "Samenstellen en indienen", "chg", [[6, 1, "bar-n", "Samenstellen"], ["ms", 7, "Indiening"], [8, 1, "bar-buf", "Buffer"]]]
+  ];
+  var g = document.getElementById("gbody");
+  var tagHtml = { "new": '<span class="tag tag-new">Nieuw</span>', "chg": '<span class="tag tag-chg">Gewijzigd</span>', "": "" };
+  rows.forEach(function (r, i) {
+    var row = i + 1;
+    var lab = document.createElement("div");
+    lab.className = "g-label";
+    lab.style.gridRow = row; lab.style.gridColumn = 1;
+    lab.innerHTML = "<b>" + r[0] + "</b><span>" + r[1] + "</span>" + (tagHtml[r[2]] ? "<br>" + tagHtml[r[2]] : "");
+    g.appendChild(lab);
+    for (var c = 2; c <= 9; c++) {
+      var cell = document.createElement("div");
+      cell.className = "g-cell";
+      cell.style.gridRow = row; cell.style.gridColumn = c;
+      g.appendChild(cell);
+    }
+    r[3].forEach(function (b) {
+      var el = document.createElement("div");
+      if (b[0] === "ms") {
+        el.className = "g-ms";
+        el.style.gridRow = row; el.style.gridColumn = (b[1] + 1);
+        if (b[3] === "end") el.style.justifySelf = "end";
+        el.innerHTML = "<i></i>" + b[2];
+      } else {
+        el.className = "g-bar " + b[2];
+        el.style.gridRow = row; el.style.gridColumn = (b[0] + 1) + " / span " + b[1];
+        el.textContent = b[3];
+      }
+      g.appendChild(el);
+    });
+  });
+
+  var bar = document.getElementById("sbar");
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var btn = document.getElementById("copy");
+  btn.addEventListener("click", function () {
+    var done = function () { btn.textContent = "Gekopieerd"; setTimeout(function () { btn.textContent = "Kopieer adres"; }, 1800); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById("addr"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = "Adres geselecteerd";
+    };
+    try {
+      navigator.clipboard.writeText("amy@naala.nl").then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body></html>
